@@ -5,7 +5,6 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 readings = []  # store last 100 readings
-CORS(app)
 
 @app.route('/data', methods=['POST'])
 def data():
