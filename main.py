@@ -15,7 +15,7 @@ def data():
         "device": payload.get("device","esp32"),
         "temperature": float(payload["temperature"]),
         "humidity": float(payload["humidity"]),
-        "ts": datetime.utcnow().isoformat() + "Z"
+        "ts": datetime.now().isoformat() + "Z"
     }
     readings.append(entry)
     if len(readings) > 100:
@@ -28,37 +28,11 @@ def latest():
         return jsonify({"message":"no data"}), 200
     return jsonify(readings[-1]), 200
 
-INDEX_HTML = """
-<!doctype html>
-<title>ESP32 DHT Dashboard</title>
-<h1>ESP32 DHT Dashboard</h1>
-<div id="last">Loading...</div>
-<script>
-async function fetchLatest(){
-  try {
-    let r = await fetch('/latest');
-    let j = await r.json();
-    if (j.temperature !== undefined) {
-      document.getElementById('last').innerHTML =
-        '<b>Device:</b> '+j.device+' <br>' +
-        '<b>Temp:</b> '+j.temperature.toFixed(1)+' °C <br>' +
-        '<b>Humidity:</b> '+j.humidity.toFixed(1)+' % <br>' +
-        '<b>Time (UTC):</b> '+j.ts;
-    } else {
-      document.getElementById('last').innerText = JSON.stringify(j);
-    }
-  } catch(e){
-    document.getElementById('last').innerText = 'Error: '+e;
-  }
-}
-setInterval(fetchLatest, 3000);
-fetchLatest();
-</script>
-"""
+
 
 @app.route('/')
 def index():
-    return render_template_string(INDEX_HTML)
+    return readings
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
