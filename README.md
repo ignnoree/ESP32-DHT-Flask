@@ -1,5 +1,5 @@
 
-# ESP32 DHT22 Monitor + Flask Backend ![Python](https://img.shields.io/badge/Python-3.11-blue) ![ESP32](https://img.shields.io/badge/ESP32-OK-green)
+# ESP32 DHT22 Monitor + Flask Backend ![C++](https://img.shields.io/badge/C++-17-lightgrey) ![Python](https://img.shields.io/badge/Python-3.11-blue) ![ESP32](https://img.shields.io/badge/ESP32-OK-green)
 
 **Minimal, reliable ESP32 + DHT22 setup to log temperature & humidity to a Flask backend.**  
 
